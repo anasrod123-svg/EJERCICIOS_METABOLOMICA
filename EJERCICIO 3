@@ -1,0 +1,22 @@
+install.packages("pacman")
+
+library("pacman")
+p_load ("ggplot2", # para graficar
+       "dplyr", #para facilitar el manejo de datos 
+        "vroom") #llamar repositorios 
+
+Datos_curva <- vroom("https://raw.githubusercontent.com/ManuelLaraMVZ/resultados_PCR_practica/main/Amplif_grupo1_17022025.csv")
+head(Datos_curva) #Solo para que me de los seis primeros datos
+
+Curva_1 <- Datos_curva %>% #el nuevos objeto va a tener una asignación a partir de la base de datos XX (en este caso datos curva )
+  select("Cycle", "F1")
+Curva_1
+
+Gráfica_curva <- ggplot(Curva_1,
+                        mapping = aes(x=Cycle,
+                                      y=F1))+
+  geom_point()+
+  geom_line(color="blue",
+            linewidth=1.2)
+
+Gráfica_curva
